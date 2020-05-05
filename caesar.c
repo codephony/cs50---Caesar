@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 int main(int argc, string argv[])
@@ -14,7 +15,7 @@ int main(int argc, string argv[])
         // Stores a boolean to use as an off switch if we dectect a bad input
         bool isKeyValid = true;
         // Stores the length of the the string in index 1 of the argv array
-        int len = strlen(argv[1]);    
+        int len = strlen(argv[1]);
         // Loop that checks each digit to see if it's a number
         for (int i = 0; i < len; i++)
         {
@@ -28,7 +29,7 @@ int main(int argc, string argv[])
         // If the loop successfully finishes and the isKeyValid bool stays true then we have a valid key and can proceed
         if (isKeyValid)
         {
-            
+
             string plain = get_string("plaintext: ");
             int plainLength = strlen(plain);
 
@@ -52,13 +53,13 @@ int main(int argc, string argv[])
                             }
                             else
                             {
-                                plain[i] = 'a' + keyRemainder - 1;  
+                                plain[i] = 'a' + keyRemainder - 1;
                             }
                         }
                         else
                         {
                             plain[i] = 'A' + keyRemainder - 1;
-                           
+
                         }
                     }
                     else if (plain[i] + KEY <= 'Z')
@@ -81,7 +82,7 @@ int main(int argc, string argv[])
                                 // Each iteration subtracts 26 "length of the alphabet" from the                                         total
                                 keyRemainder = keyRemainder - (26);
                             }
-                                    
+
                             // If the initial letter value + the new remainder is still greater than z, we do one last wrap a round by taking the difference and adding it to the value of 'a'.
                             if (plain[i] + keyRemainder > 'z')
                             {
@@ -91,7 +92,7 @@ int main(int argc, string argv[])
                             // If the keyRemainder + the initial letter value is not greater than 'z' than we take the initial letter value and add the number of steps left in the keyRemainder
                             else
                             {
-                                plain[i] = 'a' + keyRemainder - 1;  
+                                plain[i] = 'a' + keyRemainder - 1;
                             }
                         }
                         else
@@ -103,18 +104,20 @@ int main(int argc, string argv[])
                     {
                         plain[i] = plain[i] + KEY;
                     }
-                }                        
+                }
             }
-            
-            
+
+
             printf("ciphertext: %s\n", plain);
         }
         // If we detected an unusable key we ask for a proper key
         else
         {
             printf("Usage: ./caesar key\n");
+            printf("1");
+            return (1);
         }
-        
+
     }
     // If too many arguements were entered then we ask for a proper key
     else if (argc != 2)
